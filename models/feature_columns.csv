@@ -1,0 +1,16 @@
+features
+day_of_week
+month
+quarter
+is_weekend
+is_holiday_season
+lag_1_quantity
+lag_2_quantity
+lag_3_quantity
+lag_7_quantity
+rolling_mean_7_quantity
+rolling_mean_14_quantity
+rolling_mean_30_quantity
+rolling_std_7_quantity
+rolling_std_14_quantity
+rolling_std_30_quantity
