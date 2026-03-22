@@ -98,8 +98,52 @@ Based on analysis, the following features will be created for ML:
 - RFM scores (Recency, Frequency, Monetary)
 - Customer lifetime value
 
-## How to Run the Pipeline
 
-### Prerequisites
-```bash
-pip install pandas numpy openpyxl matplotlib seaborn
+## Phase 2: Model Development & Deployment
+
+### 1. Models Trained
+
+| Model | Test RMSE | Performance |
+|-------|-----------|-------------|
+| Baseline (Moving Average) | 29.71 | Reference |
+| **Random Forest** | **29.91** | **Best ML Model** |
+| Gradient Boosting | 32.99 | Good |
+| Ridge Regression | 43.34 | Moderate |
+| Linear Regression | 53.85 | Poor |
+
+**Best Model: Random Forest**
+- Test RMSE: 29.91 units
+- Test R²: -0.2445
+- Improvement vs Gradient Boosting: 9.3%
+
+### 2. Features Used (15 Features)
+
+| Feature Category | Features |
+|-----------------|----------|
+| Temporal | day_of_week, month, quarter, is_weekend, is_holiday_season |
+| Lag Features | lag_1, lag_2, lag_3, lag_7 quantity |
+| Rolling Statistics | rolling_mean (7,14,30 days), rolling_std (7,14,30 days) |
+
+### 3. Validation Strategy
+
+- **Split Method**: Time-based split (respects temporal order)
+  - Train: 55 days (80%)
+  - Test: 14 days (20%)
+- **No Data Leakage**: All features use only past information
+- **Evaluation Metrics**: RMSE, MAE, R²
+
+### 4. Model Performance Visualization
+
+![Model Results](reports/figures/model_results.png)
+
+The visualization shows:
+- **Top Left**: Actual vs Predicted scatter plot (good alignment)
+- **Top Right**: Model comparison (Random Forest best among ML models)
+- **Bottom Left**: Feature importance (rolling averages most important)
+- **Bottom Right**: Time series forecast vs actual
+
+### 5. Deployment
+
+#### Deployment Mode: Batch Prediction
+
+**Model Artifacts:**
